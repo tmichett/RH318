@@ -1,6 +1,6 @@
 ---
-- hosts: rhv-m.example.com
-  user: ansible-user
+- hosts: rhvm.lab.example.com
+  user: root
   become: true
   vars_files:
     # Contains variables to connect to the Manager
@@ -21,7 +21,7 @@
 
   vars:
     data_center_name: Development
-    cluster_name: Development_Cluster
+    cluster_name: clusterone
     cluster_description: Development Cluster
     # host_name: rhel-h-1
     # host_fqdn_name: rhel-h-1.example.com
@@ -32,8 +32,8 @@
       ovirt_vm:
         auth: "{{ ovirt_auth }}"
         state: running
-        name: DEV_WS_Base_1
-        template: Dev_WS_VM_Template
+        name: DEMO1
+        template: Demo_Template
         cluster: "{{ cluster_name }}"
         timezone: America/New_York
         cloud_init_persist: true
@@ -44,7 +44,7 @@
 #          nic_gateway: 192.0.12.2
           nic_name: eth0
           nic_on_boot: true
-          host_name: DEV_WS_Base_1
+          host_name: Demo1
           user_name: ansible-user
           root_password: r3dh4t1
           authorized_ssh_keys: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCucMK8pPDth/YOScYspZI77TURQ2F+h0TAC2P0o6Ec2oXp5zwDmDrUmnK4OQsgoEyvduoSutrvn0H6UBsFvWJF7WNE+oSdrSuzhQbLJSun+YwBy3kVv2N2zuVvUy4iFVnfwoGSG4EqI6gKxpvCszjwOn2agu8XX3+Q6VUWS8BHbsBCJkjdeRnCKa4RL8iOFmZ5csK6jnjaKxDT7fOnrrvpxMeG8XunlYim+9B7iQzDpdGtPsMl16OANsZbGGd2G8k5ldjRdrwyuvSUMzbChQByMyLz/Xckse5ArXcKWOcER6iZIQe3o7cO0gAVShmriJ3ZPKNkbTj+AHloPiu0Yng7 ansible-user@idm"

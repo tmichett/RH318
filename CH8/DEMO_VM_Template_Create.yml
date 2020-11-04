@@ -1,6 +1,6 @@
 ---
-- hosts: rhv-m.example.com
-  user: ansible-user
+- hosts: rhvm.lab.example.com
+  user: root
   become: true
   vars_files:
     # Contains variables to connect to the Manager
@@ -21,7 +21,7 @@
 
   vars:
     data_center_name: Development
-    cluster_name: Development_Cluster
+    cluster_name: clusterone
     cluster_description: Development Cluster
     # host_name: rhel-h-1
     # host_fqdn_name: rhel-h-1.example.com
@@ -32,7 +32,7 @@
         auth: "{{ ovirt_auth }}"
         cluster: "{{ cluster_name }}"
         name: Dev_WS_VM_Template
-        vm: DEV_WS_Base
+        vm: USARCyber
         state: present
         description: Development Workstation Template
         seal: yes
