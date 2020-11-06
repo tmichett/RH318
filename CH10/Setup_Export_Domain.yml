@@ -30,7 +30,7 @@
       ovirt_storage_domain:
         auth: "{{ ovirt_auth }}"
         data_center: "{{ data_center_name }}"
-        host: hostb
+        host: hostb.lab.example.com
         nfs:
          address: 172.24.0.8
          path: /exports/data2
