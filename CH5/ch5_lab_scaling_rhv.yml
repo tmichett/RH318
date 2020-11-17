@@ -1,0 +1,54 @@
+---
+- hosts: rhvm.lab.example.com
+  user: root
+  become: false
+  vars_files:
+    # Contains variables to connect to the Manager
+    - engine_vars.yml
+    # Contains encrypted engine_password variable using ansible-vault
+    - passwords.yml
+
+  pre_tasks:
+    - name: Login to RHV
+      ovirt_auth:
+        url: "{{ engine_url }}"
+        username: "{{ engine_user }}"
+        password: "{{ engine_password }}"
+        ca_file: "{{ engine_cafile | default(omit) }}"
+        insecure: "{{ engine_insecure | default(true) }}"
+      tags:
+        - always
+
+  vars:
+    data_center_name: production
+    data_center_description: Production Data Center
+    data_center_local: false
+    compatibility_version: "4.3"
+    cluster_name: clustertwo
+    cluster_description: Production Cluster Two
+
+  tasks:
+    # Place host in maintenance
+    - name: Place HostC in Maintenance
+      ovirt_host:
+        auth: "{{ ovirt_auth }}"
+        name: hostc.lab.example.com
+        state: maintenance
+
+    # Place host in new cluster and activate
+    - name: Move host to new cluster
+      ovirt_host:
+        auth: "{{ ovirt_auth }}"
+        cluster: "{{ cluster_name  }}"
+        name: hostc.lab.example.com
+        state: present
+
+
+  post_tasks:
+    - name: Logout from RHV
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      tags:
+        - alwaysovi
+
