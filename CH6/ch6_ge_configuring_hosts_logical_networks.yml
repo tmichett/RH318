@@ -33,7 +33,7 @@
         interface: eth0
         networks:
           - name: vm-net
-            boot_protocol: dhcp
+            boot_protocol: none
 
 
 
