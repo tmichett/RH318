@@ -69,7 +69,7 @@
         interface: eth0
         networks:
           - name: prod-vm-net
-            boot_protocol: dhcp
+            boot_protocol: none
 
     - name: Setup RHV-H Host Network for Storage
       ovirt_host_network:
